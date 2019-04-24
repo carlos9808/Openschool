@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OpenSchool</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color: #f2f2f2">
+  <header>
+    <!---------Barra de Menu horizontal-------->
+   <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+      <div class="container">
+          <a class="navbar-brand" href="{% url 'foro:index' %}">OpenSchool</a>
+          <form class="form-inline" action="{% url 'foro:buscar' %}" method="POST" style="position: relative; right:100px">{% csrf_token %}
+            <input class="form-control" name="buscalo" type="text" placeholder="Buscar..." >
+            <button class="btn btn-info" type="submit" >Buscar</button>
+          </form>
+          <ul class="navbar-nav">
+          {% if not user.is_authenticated %} 
+            <li class="nav-item" >
+             <a class="nav-link" href="{% url 'cuentas:registro' %}">Registrate!</a>
+            </li>
+            <li class="nav-item" ">
+              <a class="nav-link" href="{% url 'cuentas:login_user' %}">Iniciar Sesión</a>
+            </li>
+          {%else%}
+              <div class="dropdown">
+               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Cuenta
+               </button>
+               <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'blog:blog' %}">Blog</a>
+                <a class="dropdown-item" href="{% url 'cuentas:logout_user' %}">Logout</a>
+               </div>
+             </div>
+            </li>
+          {% endif%}
+          </ul>
+      </div>
+   </nav>
+
+  </header>
+    <!-----Contenedor de cuerpo de la pagina------>
+  <div class="container">
+    <div class="row">
+      <!-----Primera seccion de la pagina(izquierda)------>
+      <div class="col-md-3 list-group" style="margin-top: 10px;">
+           
+            <a href="{% url 'foro:index' %}" class="list-group-item list-group-item-primary">Foros</a>
+            <a href="{% url 'articulos:index' %}" class="list-group-item list-group-item-primary">Artículos</a><br>
+            <label>Herramientas</label>
+             <a href="http://www.wolframalpha.com/" class="list-group-item list-group-item-primary">WolframAlpha</a>
+            <a href="https://www.arenasimulation.com/" class="list-group-item list-group-item-primary">Arena Simulatior</a>
+             <a href="https://www.texstudio.org/" class="list-group-item list-group-item-primary">TeXstudio</a>
+            <a href="http://www.malmath.com/" class="list-group-item list-group-item-primary">MalMath</a>
+             <a href="https://www.geogebra.org/?lang=es" class="list-group-item list-group-item-primary">GeoGebra</a>
+            <a href="http://www.ni.com/multisim/try/esa/" class="list-group-item list-group-item-primary">Multisim</a>
+
+      </div>
+            <div class="col-md-9 list-group-item list-group-item-primary" style="margin-top: 10px;">
+                 <h2>Bienvenidos!!</h2>
+                 <img src="{% static 'imagenes/open.png' %}" class="rounded" width="300" height="250" style="margin-left: 220px;" >
+                 <br><br>
+                 <p>"Somos una red social que ayuda a los usuarios proporcionandoles herramientas de trabajo y una comunidad para la resolución de dudas una materia a través de foros, de una manera mas amigable".</p>
+            </div>
+      </div>
+  </div>
+</body>
+</html>

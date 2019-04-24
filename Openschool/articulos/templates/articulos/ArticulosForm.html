@@ -1,0 +1,12 @@
+{% extends 'cuentas/index2.html' %}
+
+                {% block body %}
+                <div class="container">
+                    <h1>¿Cuál es el artículo que quieres subir?</h1>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ Pregunta_Form.as_p }}
+                        <button type="submit" class="btn btn-block btn-lg btn-info">Subir artículo</button>
+                    </form>
+                </div>
+                {% endblock %}

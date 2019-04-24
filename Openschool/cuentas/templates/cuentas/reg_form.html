@@ -1,0 +1,12 @@
+{% extends 'cuentas/base.html' %}
+{% block body %}
+   <div class="container card bg-light" style="margin-top: 10px; margin-bottom: 10px;width: 50%" >
+     <h1 style="text-align: center;">Registro</h1>
+         <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{ UserForm_form.as_p }}
+                    {{ Datos_form.as_p }}
+                    <button type="submit" class="btn btn-block btn-lg btn-success" style="margin-bottom: 10px;">Crear</button>
+        </form>
+   </div>
+                {% endblock %}

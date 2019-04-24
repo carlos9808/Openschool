@@ -1,0 +1,17 @@
+{% extends 'cuentas/index2.html' %}
+{% block body %}
+	{% if Preguntas %}
+	<div class="list-group" style="margin-top: 10px;">
+		<a href="{% url 'foro:PreguntaFormA' Materias.id %}" class="list-group-item list-group-item-info" style="text-align: center;">CrearPregunta</a>
+    </div>
+		 {% for Pregunta in Preguntas %}
+		  <div style="margin-top: 10px;">
+         	<div >
+			 <li style="display: block; text-decoration: none;"><a href="{% url 'foro:results' Pregunta.id %}" style="color:white; " class="btn btn-lg btn-block btn-primary" role="button" >{{Pregunta.Texto_Pregunta}}</a></li>
+			</div>
+		</div>
+		{% endfor %}
+	{% else %}
+		<h2>'no hay Preguntas'</h2>
+	{% endif %}
+{% endblock %}

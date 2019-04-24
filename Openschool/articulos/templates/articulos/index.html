@@ -1,0 +1,16 @@
+{% extends 'cuentas/index2.html' %}
+{% block body %}
+    <h1 style="text-align: center;">Artículos</h1>
+            	{% if Carreras %}
+                {% for Carrera in Carreras %}
+                <div class="pregunta " style="margin-top: 10px">
+                	<div class="">
+                		<li style="display: block; text-decoration: none;"><a href="{% url 'articulos:detail' Carrera.id %}" style="color:white" class="btn btn-lg btn-block btn-primary" role="button">{{Carrera.Nombre_Carrera}}</a></li>
+                	</div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2>'No hay Carreras'</h2>
+
+                {% endif %}
+{% endblock %}

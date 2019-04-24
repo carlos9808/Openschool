@@ -1,0 +1,41 @@
+{% extends 'cuentas/index2.html' %}
+{% block body %}
+{% if Articulos %}
+<div class="card bg-primary" style="margin-top: 10px;">
+  <div class="card-body">
+  <h2 style="color:white;">{{Articulos.Titulo}}</h2>
+  </div>
+</div>
+{% else %}
+<div class="card bg-primary" style="margin-top: 10px;">
+  <div class="card-body">
+  <h2 style="color:white;">{{ComentarioP.Texto_Respuesta}}</h2>
+  </div>
+</div>
+{% endif %}
+	{% if Comentarios %}
+      <div class="list-group-item list-group-item-primary">
+     {% for Respuesta_Pregunta in Comentarios %}
+        <li style="display: block; text-decoration: none;"><a href="{% url 'articulos:resultsH' Preguntaid Respuesta_Pregunta.id %}" class="btn btn-lg btn-block btn-info" role="button" style="text-align: left;">{{Respuesta_Pregunta.Texto_Respuesta}}</a></li>
+      </div>
+      <div class="list-group-item list-group-item-primary">
+        <form method="post">
+     {% endfor %}
+        {% csrf_token %}
+        {{ Respuesta_Form.as_p }}
+        <button type="submit" class="btn btn-lg btn-info">Submit</button>
+        </form>
+      </div>
+	{% else %}
+	<div class="list-group-item list-group-item-primary">
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ Respuesta_Form.as_p }}
+        <button type="submit" class="btn btn-lg btn-info">Submit</button>
+      </form>
+    </div>
+  </div>
+
+	{% endif %}
+{% endblock %}

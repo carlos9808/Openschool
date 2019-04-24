@@ -1,0 +1,31 @@
+{% extends 'cuentas/index2.html' %}
+{% block body %}
+<div id="Chat" class="panel panel-default">
+	<div class="panel-heading">Chat</div>
+	<div id="lista-msj" class="panel-body">
+		<ul id="lista" class="list-group">
+			{% for Chat  in chats %}
+			   {% if Chat.user == request.user %}
+			    <li class="text-right list-group-item">{{obj.message}}</li>
+			   {% else %}
+			    <li class="text-left list-group-item">{{obj.message}}</li>
+			   {% endif %}
+			{% empty %}
+			  <li class="text-right list-group-item">No hay mensajes</li>
+			{% endfor %}
+			<script>
+				var chatlist = document.getElementById('lista-msj');
+				chatlist.scrollTop=chatlist.scrollHeight;
+			</script>
+		</ul>
+	</div>
+</div>
+<form id="forma-chat" method="post" action="{% url 'cuentas:post'%}">
+	<div id="chat-bottom" class="input-group">
+		<input type="text" name="chat-msj" id="chat-msj" class="form-control"/>
+		<span class="input-group-btn">
+			{% csrf_token %}
+			<input type="submit" class="btn btn-default" id="Enviar" value="Enviar"/>
+	</div>
+</form>
+{% endblock %}

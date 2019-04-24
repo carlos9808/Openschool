@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OpenSchool</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="{% static 'chat.js' %}"></script>
+
+</head>
+<body style="background-color: #f2f2f2">
+	<header>
+		<!---------Barra de Menu horizontal-------->
+	 <nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+      <div class="container">
+          <a class="navbar-brand" href="{% url 'foro:index' %}">OpenSchool</a>
+          <form class="form-inline" action="#" style="position: relative; right:100px">
+            <input class="form-control" type="text" placeholder="Buscar..." >
+            <button class="btn btn-info" type="submit">Buscar</button>
+          </form>
+          <ul class="navbar-nav">
+          {% if not user.is_authenticated %}
+            <li class="nav-item" >
+             <a class="nav-link" href="{% url 'cuentas:registro' %}">Registrate!</a>
+            </li>
+            <li class="nav-item" ">
+              <a class="nav-link" href="{% url 'cuentas:login_user' %}">Iniciar Sesión</a>
+            </li>
+				  {%else%}
+              <div class="dropdown">
+               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Cuenta
+               </button>
+               <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'blog:blog' %}">Blog</a>
+                <a class="dropdown-item" href="{% url 'cuentas:logout_user' %}">Logout</a>
+               </div>
+             </div>
+            </li>
+          {% endif%}
+          </ul>
+      </div>
+   </nav>
+ </header>
+{% block body %}
+<div class="container">
+ <div class="row">
+  <div class="col-md-3">
+    <div class="list-group" style="margin-top: 10px;">
+		<label class="list-group-item list-group-item-info" style="text-align: center;">
+			 {% if Usuario.perfil %}
+     <img src="{{Usuario.perfil.url}} " class="rounded-circle" width="100" height="100"/><br>{{user.username}}</label><br>
+		 {%else%}
+		 <img src="{% static 'imagenes/usuario.jpg' %}" class="rounded-circle" width="100" height="100"/><br>{{user.username}}</label><br>
+		 {%endif%}
+
+		 <a href="{% url 'foro:index' %}" class="list-group-item list-group-item-primary">Foros</a>
+     <a href="{% url 'articulos:index' %}" class="list-group-item list-group-item-primary">Artículos</a><br>
+     <label>Herramientas</label>
+     <a href="http://www.wolframalpha.com/" class="list-group-item list-group-item-primary">WolframAlpha</a>
+     <a href="https://www.arenasimulation.com/" class="list-group-item list-group-item-primary">Arena Simulatior</a>
+     <a href="https://www.texstudio.org/" class="list-group-item list-group-item-primary">TeXstudio</a>
+     <a href="http://www.malmath.com/" class="list-group-item list-group-item-primary">MalMath</a>
+     <a href="https://www.geogebra.org/?lang=es" class="list-group-item list-group-item-primary">GeoGebra</a>
+     <a href="http://www.ni.com/multisim/try/esa/" class="list-group-item list-group-item-primary">Multisim</a>
+    </div>
+ </div>
+ <div class="col-md-9" >
+ {% if Pregunta_Usuario %}
+  <div class="list-group-item list-group-item-primary" style="margin-top: 10px;height: 100%; width: 100%">
+    <h1 style="text-align: center;">Mis preguntas</h1>
+      <div>
+  {% for Pregunta in Pregunta_Usuario %}
+	    <li style="display: block; text-decoration: none; margin-top: 10px;" ><a href="{% url 'foro:results' Pregunta.id %}" style="color:white;" class="btn btn-lg btn-block btn-primary" role="button" >{{Pregunta.Texto_Pregunta}}</a></li>
+  {% endfor %}
+     </div>
+	</div>
+ {% else %}
+    <h2 class="list-group-item list-group-item-primary" style="margin-top: 10px;">No has hecho ninguna pregunta</h2>
+ {% endif %}
+   </div>
+{% endblock %}
+ </div>
+</div>
+</body>
+</html>

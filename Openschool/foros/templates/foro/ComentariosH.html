@@ -1,0 +1,13 @@
+{% extends 'cuentas/index2.html' %}
+{% block body %}
+									{% if Comentarios %}
+									  <ul>
+
+									    {% for Respuesta_Pregunta in Comentarios %}
+                      <li><a href="{% url 'foro:resultsH' Preguntaid Respuesta_Pregunta.id %}" class="btn btn-lg btn-block btn-primary" role="button">{{Respuesta_Pregunta.Texto_Respuesta}}</a></li>
+									    {% endfor %}
+									  </ul>
+									{% else %}
+									  <h2>'no hay Respuesta_Pregunta'</h2>
+									{% endif %}
+									{% endblock %}
